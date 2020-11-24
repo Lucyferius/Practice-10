@@ -8,11 +8,10 @@ $last_name = $_POST['last_name'];
 $login = $_POST['login'];
 $password = $_POST['password'];
 
-$check_login = mysqli_query($connect, "SELECT * FROM `users` WHERE `login` = '$login'");
+$check_login = mysqli_query($conn, "SELECT * FROM `testdb` WHERE `login` = '$login'");
 
-$password = md5($password);
 
-mysqli_query($connect, "INSERT INTO `users` (`id`, `first_name`, `last_name`, `password`, `login`, `id_role` ) VALUES (NULL, '$first_name','$last_name', '$password', '$login', '1')");
+mysqli_query($conn, "INSERT INTO `testdb` (`id`, `first_name`, `last_name`, `password`, `login`, `id_role` ) VALUES (NULL, '$first_name','$last_name', '$password', '$login', 1)");
 
 $_SESSION['message'] = 'Регистрация прошла успешно!';
 header('Location: login.php');

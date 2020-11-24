@@ -15,7 +15,7 @@ session_start();
 <div class="input-field"><input placeholder="First name" id="first_name" type="text" name="first_name" ></div>
 <div class="input-field"><input placeholder="Last name" id="last_name" type="text" name="last_name" ></div>
 <div class="input-field"><input placeholder="Login" id="login" type="text" name="login" ></div>
-<div class="input-field"><input placeholder="Password" id="password" type="text" name="password" ></div>
+<div class="input-field"><input placeholder="Password" id="password" type="password" name="password" ></div>
     <input  type="submit" class="btn" name="send" value="Send">
     <input  type="reset" class="btn" name="reset" value="Clear form">
     <p class="register">

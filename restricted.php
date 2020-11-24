@@ -16,6 +16,7 @@ if($_SESSION['auth'] == true)
     echo $output;
     echo "<img src='https://photographers.ua/thumbnails/pictures/4328/800x_isa2613f-ua-7.jpg' height='470'>";
 }
+
 else
 {  
     $output ="

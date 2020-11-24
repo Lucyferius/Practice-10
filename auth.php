@@ -1,31 +1,49 @@
 <?php
 session_start();
-echo 'hello';
+$_SESSION['auth'] = false;
 
-$_SESSION['login'] = $_POST['login'];
-$user_name = "admin";
-$user_pass = "1111";
-$_SESSION['auth']  = false;
+$login = $_POST['login'];
+$password = md5($_POST['password']);
 
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = "testdb"; //повинна бути створена в субд
 
-    if($_POST['login'] == $user_name && $_POST['password'] == $user_pass){
-    
-        $_SESSION['auth'] = true;
-        echo 'asss';
-        header('Location: restricted.php');
-    
+// Встановлення з'єднання 
+$conn = new mysqli($servername, $username, $password, $database);
+
+// Перевірка з'єднання
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+    //require_once 'connection.php';
+    if (count($_POST)>0) {
+		//potential sql injection, 
+		$res = mysqli_query($conn, "SELECT * FROM `testdb` WHERE `login`= '".mysqli_real_escape_string($conn, $_POST['login'])."' and `password`='".mysqli_real_escape_string($conn, $_POST['password'])."'");
+        if (!$res) {
+            printf("Error: %s\n", mysqli_error($conn));
+            exit();
+        }
+        $row = mysqli_fetch_array($res);
+		if (is_array($row)){
+			$_SESSION['password'] = $row['password'];
+            $_SESSION['login'] = $row['login'];
+            $_SESSION['auth'] = true;
+            header('Location: restricted.php');
+        }
+        else {
+            $_SESSION['message'] = 'Не верный логин или пароль';
+            header('Location: login.php');
+           }
+          
     }
-    else {
-        $_SESSION['message'] = 'Не верный логин или пароль';
-        header('Location: login.php');
-    }
 
-    require_once 'connection.php';
-
+/*
     $login = $_POST['login'];
     $password = md5($_POST['password']);
    
-    $check_user = mysqli_query($connection, "SELECT * FROM `users` WHERE `login` = '$login' AND `password` = '$password'");
+    $check_user = mysqli_query($conn, "SELECT * FROM `users` WHERE `login` = '$login' AND `password` = '$password'");
     if (mysqli_num_rows($check_user) > 0) {
 
         $user = mysqli_fetch_assoc($check_user);
@@ -45,5 +63,5 @@ $_SESSION['auth']  = false;
         $_SESSION['message'] = 'Не верный логин или пароль';
         header('Location: login.php');
     }
-
+*/
 ?>

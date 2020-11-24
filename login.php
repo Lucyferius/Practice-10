@@ -14,30 +14,25 @@ session_start();
 <body>
 
 <div class="container">
-<form action="auth.php" method="post">
- <div class="input-field"> <input placeholder="Login"  type="text" name="login" > </div>
- <div class="input-field"> <input placeholder="Password"  type="password" name="password"> </div> 
+<form action="auth.php" method="POST">
+ <div class="input-field"> <input placeholder="Login" id="login" type="text" name="login" > </div>
+ <div class="input-field"> <input placeholder="Password" id="password" type="password" name="password"> </div> 
  <input type="submit" class="btn" value="Send">
  <input type="reset" class="btn" value="Clear">
     <p class="register">
         У вас нет аккаута? - <a href="/practice10/registration.php">Зарегистрируйтесь</a> 
     </p>
+    <?php 
+       if (isset($_SESSION['message'] )) {
+            echo '<p class="msg"> ' . $_SESSION['message'] . ' </p>';
+        }
+        unset($_SESSION['message']);
+    ?>
    
 </form>
 </div>
 
-<?php 
-       /* if ($_SESSION['message'] != "") {
-            echo '<p class="msg"> ' . $_SESSION['message'] . ' </p>';
-        }*
-        unset($_SESSION['message']);*/
 
-        if (isset($_GET["submit"])) {
-            echo 'adfa';
-            header('Location: auth.php');
-            exit;
-        }
-    ?>
 
 </body>
 </html>
